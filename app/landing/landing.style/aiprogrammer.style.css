@@ -1,0 +1,69 @@
+/* === Animated Border Card Styles for AI Programmer === */
+@property --angle {
+  syntax: '<angle>';
+  initial-value: 0deg;
+  inherits: false;
+}
+
+@keyframes rotate {
+  to {
+    --angle: 360deg;
+  }
+}
+
+.aip-animated-border-card {
+  position: relative;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.aip-animated-border-card::before {
+  content: '';
+  position: absolute;
+  z-index: -2;
+  left: -50%;
+  top: -50%;
+  width: 200%;
+  height: 200%;
+  background-repeat: no-repeat;
+  background-image: conic-gradient(
+    from var(--angle),
+    transparent 0%,
+    transparent 30%,
+    var(--aip-border-color, #6366f1) 45%, 
+    var(--aip-border-color, #6366f1) 55%,
+    transparent 70%,
+    transparent 100%
+  );
+  animation: rotate var(--duration, 4s) linear infinite;
+  transform-origin: center center;
+}
+
+.aip-animated-border-card::after {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  inset: 2px;
+  background: #1f2937;
+  border-radius: calc(0.75rem - 2px);
+}
+
+.aip-border-indigo {
+  --aip-border-color: #00e5ff;
+}
+
+.aip-border-teal {
+  --aip-border-color: #00ff9d;
+}
+
+.aip-border-rose {
+  --aip-border-color: #ff00ff;
+}
+
+.aip-animation-normal {
+  --duration: 4s;
+}
+
+.aip-animation-fast {
+  --duration: 0.7s;
+} 

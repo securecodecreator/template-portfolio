@@ -1,0 +1,152 @@
+/* === Gradient Animation === */
+@keyframes gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.animate-gradient {
+  background-size: 200% 200%;
+  animation: gradient 6s ease infinite;
+}
+
+/* === Glitch Effect === */
+.glitch {
+  position: relative;
+}
+
+.glitch::before,
+.glitch::after {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: inherit;
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  overflow: hidden;
+}
+
+.glitch::before {
+  left: 2px;
+  text-shadow: -1px 0 red;
+  animation: glitch-anim-1 2s infinite linear alternate-reverse;
+  mix-blend-mode: screen;
+}
+
+.glitch::after {
+  left: -2px;
+  text-shadow: -1px 0 blue;
+  animation: glitch-anim-2 3s infinite linear alternate-reverse;
+  mix-blend-mode: screen;
+}
+
+@keyframes glitch-anim-1 {
+  0% { clip-path: inset(10% 0 80% 0); transform: translate(-1px, 0px); }
+  10% { clip-path: inset(50% 0 30% 0); transform: translate(1px, -1px); }
+  20% { clip-path: inset(90% 0 5% 0); transform: translate(-1px, 1px); }
+  30% { clip-path: inset(30% 0 60% 0); transform: translate(1px, 0px); }
+  40% { clip-path: inset(70% 0 10% 0); transform: translate(-1px, -1px); }
+  50% { clip-path: inset(15% 0 75% 0); transform: translate(1px, 1px); }
+  60% { clip-path: inset(60% 0 25% 0); transform: translate(-1px, 0px); }
+  70% { clip-path: inset(85% 0 5% 0); transform: translate(1px, -1px); }
+  80% { clip-path: inset(40% 0 45% 0); transform: translate(-1px, 1px); }
+  90% { clip-path: inset(20% 0 70% 0); transform: translate(1px, 0px); }
+  100% { clip-path: inset(65% 0 20% 0); transform: translate(-1px, -1px); }
+}
+
+@keyframes glitch-anim-2 {
+  0% { clip-path: inset(85% 0 5% 0); transform: translate(1px, -1px); }
+  10% { clip-path: inset(40% 0 45% 0); transform: translate(-1px, 1px); }
+  20% { clip-path: inset(20% 0 70% 0); transform: translate(1px, 0px); }
+  30% { clip-path: inset(65% 0 20% 0); transform: translate(-1px, -1px); }
+  40% { clip-path: inset(10% 0 80% 0); transform: translate(1px, 0px); }
+  50% { clip-path: inset(50% 0 30% 0); transform: translate(-1px, 1px); }
+  60% { clip-path: inset(90% 0 5% 0); transform: translate(1px, -1px); }
+  70% { clip-path: inset(30% 0 60% 0); transform: translate(-1px, 0px); }
+  80% { clip-path: inset(70% 0 10% 0); transform: translate(1px, 1px); }
+  90% { clip-path: inset(15% 0 75% 0); transform: translate(-1px, -1px); }
+  100% { clip-path: inset(60% 0 25% 0); transform: translate(1px, 0px); }
+}
+
+/* === Animated Border Card Styles === */
+@property --angle {
+  syntax: '<angle>';
+  initial-value: 0deg;
+  inherits: false;
+}
+
+@keyframes rotate {
+  to {
+    --angle: 360deg;
+  }
+}
+
+.animated-border-card {
+  position: relative;
+  z-index: 0;
+  overflow: hidden;
+  border-radius: 0.75rem;
+  --duration: 4s;
+}
+
+.animated-border-card::before {
+  content: '';
+  position: absolute;
+  z-index: -2;
+  left: -50%;
+  top: -50%;
+  width: 200%;
+  height: 200%;
+  background-repeat: no-repeat;
+  background-image: conic-gradient(
+    from var(--angle),
+    transparent 0%,
+    transparent 30%,
+    var(--border-color, #ffffff) 45%,
+    var(--border-color, #ffffff) 55%,
+    transparent 70%,
+    transparent 100%
+  );
+  animation: rotate var(--duration) linear infinite;
+  transform-origin: center center;
+}
+
+.animated-border-card::after {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  inset: 2px;
+  background: #1f2937;
+  border-radius: calc(0.75rem - 2px);
+}
+
+/* --- Border Color Variations --- */
+.animated-border-card.border-green {
+  --border-color: #2dd4bf;
+}
+
+.animated-border-card.border-orange {
+  --border-color: #fb923c;
+}
+
+.animated-border-card.border-purple {
+  --border-color: #c084fc;
+}
+
+/* --- Card Content Container --- */
+.card-content {
+   position: relative;
+   z-index: 1;
+   padding: 1.5rem;
+}
+/* === End Animated Border Card Styles === */ 
